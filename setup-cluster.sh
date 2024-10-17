@@ -25,3 +25,5 @@ echo "PostgreSQL has been installed and is running."
 # Verify installation
 kubectl get pods --namespace my-namespace
 kubectl get svc --namespace my-namespace
+
+nc -zv localhost 30007
