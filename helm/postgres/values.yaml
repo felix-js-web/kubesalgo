@@ -1,0 +1,12 @@
+image:
+  repository: postgres
+  tag: "12.6"
+service:
+  type: NodePort
+  port: 5432
+  nodePort: 30007  # Use a valid NodePort in the range 30000-32767
+resources: {}
+postgresql:
+  database: mydatabase
+  username: myuser
+  password: mypassword
