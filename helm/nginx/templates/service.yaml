@@ -15,21 +15,3 @@ spec:
       nodePort: {{ .Values.nginx.service.nodePort }}
   selector:
     app: nginx
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: hashicorp-echo
-  labels:
-    app: hashicorp-echo
-spec:
-  type: {{ .Values.echo.service.type }}
-  ports:
-    - port: {{ .Values.echo.service.port }}
-      targetPort: {{ .Values.echo.service.port }}
-      protocol: TCP
-      name: http
-      nodePort: {{ .Values.echo.service.nodePort }}
-  selector:
-    app: hashicorp-echo

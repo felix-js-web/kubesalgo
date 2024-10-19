@@ -1,0 +1,52 @@
+# helm/nginx/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hashicorp-echo
+  labels:
+    app: hashicorp-echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hashicorp-echo
+  template:
+    metadata:
+      labels:
+        app: hashicorp-echo
+    spec:
+      containers:
+        - name: hashicorp-echo
+          image: "{{ .Values.echo.image }}:{{ .Values.echo.tag }}"
+          args: {{ .Values.echo.args | toJson }}
+          ports:
+            - containerPort: {{ .Values.echo.service.port }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hashicorp-echo
+  labels:
+    app: hashicorp-echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hashicorp-echo
+  template:
+    metadata:
+      labels:
+        app: hashicorp-echo
+    spec:
+      containers:
+        - name: hashicorp-echo
+          image: "{{ .Values.echo.image }}:{{ .Values.echo.tag }}"
+          args: {{ .Values.echo.args | toJson }}
+          ports:
+            - containerPort: {{ .Values.echo.service.port }}
+          resources:
+            limits:
+              cpu: {{ .Values.echo.resources.limits.cpu }}
+              memory: {{ .Values.echo.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.echo.resources.requests.cpu }}
+              memory: {{ .Values.echo.resources.requests.memory }}

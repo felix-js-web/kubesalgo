@@ -25,6 +25,11 @@ helm upgrade -i my-nginx ./helm/nginx \
 --namespace nginx-namespace --create-namespace \
 -f ./helm/nginx/values.yaml
 
+# Deploy HashiCorp Echo using Helm with specified options
+helm upgrade -i my-echo ./helm/echo \
+--namespace echo-namespace --create-namespace \
+-f ./helm/echo/values.yaml
+
 echo "PostgreSQL has been installed and is running."
 
 # Verify installation
@@ -32,8 +37,10 @@ kubectl get pods --namespace postgres-namespace
 kubectl get svc --namespace postgres-namespace
 kubectl get pods --namespace nginx-namespace
 kubectl get svc --namespace nginx-namespace
+kubectl get pods --namespace echo-namespace
+kubectl get svc --namespace echo-namespace
 
 # Verify port mapping
-nc -zv localhost 30007
+nc -zv localhost 5432
 nc -zv localhost 30008
 nc -zv localhost 30009

@@ -5,7 +5,13 @@ nodes:
   - role: control-plane
     extraPortMappings:
       - containerPort: 30007
-        hostPort: 30007
+        hostPort: 5432
+        protocol: TCP
+      - containerPort: 30008
+        hostPort: 30008
+        protocol: TCP
+      - containerPort: 30009
+        hostPort: 30009
         protocol: TCP
     kubeadmConfigPatches:
         - |

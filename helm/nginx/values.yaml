@@ -6,13 +6,3 @@ nginx:
     type: NodePort
     port: 80
     nodePort: 30009  # Use a valid NodePort in the range 30000-32767
-
-echo:
-  image: "hashicorp/http-echo"
-  tag: "0.2.3"
-  service:
-    type: NodePort
-    port: 5678
-    nodePort: 30008  # Use a valid NodePort in the range 30000-32767
-  args:
-    - "-text=Hello, world!"
