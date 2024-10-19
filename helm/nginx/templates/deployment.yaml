@@ -1,0 +1,46 @@
+# helm/nginx/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: "{{ .Values.nginx.image }}:{{ .Values.nginx.tag }}"
+          ports:
+            - containerPort: {{ .Values.nginx.service.port }}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hashicorp-echo
+  labels:
+    app: hashicorp-echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hashicorp-echo
+  template:
+    metadata:
+      labels:
+        app: hashicorp-echo
+    spec:
+      containers:
+        - name: hashicorp-echo
+          image: "{{ .Values.echo.image }}:{{ .Values.echo.tag }}"
+          args: {{ .Values.echo.args | toJson }}
+          ports:
+            - containerPort: {{ .Values.echo.service.port }}

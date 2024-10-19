@@ -17,13 +17,23 @@ helm dependency update ./helm/postgres
 
 # Deploy PostgreSQL using Helm with specified options
 helm upgrade -i my-postgres ./helm/postgres \
---namespace my-namespace --create-namespace \
+--namespace postgres-namespace --create-namespace \
 -f ./helm/postgres/values.yaml
+
+# Deploy NGINX and HashiCorp Echo using Helm with specified options
+helm upgrade -i my-nginx ./helm/nginx \
+--namespace nginx-namespace --create-namespace \
+-f ./helm/nginx/values.yaml
 
 echo "PostgreSQL has been installed and is running."
 
 # Verify installation
-kubectl get pods --namespace my-namespace
-kubectl get svc --namespace my-namespace
+kubectl get pods --namespace postgres-namespace
+kubectl get svc --namespace postgres-namespace
+kubectl get pods --namespace nginx-namespace
+kubectl get svc --namespace nginx-namespace
 
+# Verify port mapping
 nc -zv localhost 30007
+nc -zv localhost 30008
+nc -zv localhost 30009

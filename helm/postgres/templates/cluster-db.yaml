@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "postgres.fullname" . }}
+  name: my-postgres
   labels:
-    app: {{ include "postgres.name" . }}
-    chart: {{ include "postgres.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app: postgres
+    chart: postgres-0.1.0
+    release: my-release
+    heritage: Helm
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ include "postgres.name" . }}
-      release: {{ .Release.Name }}
+      app: postgres
+      release: my-release
   template:
     metadata:
       labels:
-        app: {{ include "postgres.name" . }}
-        release: {{ .Release.Name }}
+        app: postgres
+        release: my-release
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: postgres
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.port }}
